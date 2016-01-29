@@ -1,0 +1,19 @@
+import org.openhab.core.library.types.*
+import org.openhab.core.persistence.*
+import org.openhab.model.script.actions.*
+
+var String[] buffer
+var tempCelsius
+
+rule "Convert_Temp_CtoF"
+
+when
+    Item esp_dht22 changed 
+then
+    buffer = esp_dht22.state.toString.split(", ")
+    var Number tempCelsius = new Number(buffer.get(0))
+    var Number humidity = new Number(buffer.get(1))
+    var Number tempF = tempCelsius * 9/5 +  32
+    var Number tempFahrenheit = tempF
+    postUpdate(esp_dht22_t, tempFahrenheit)
+end
