@@ -1,0 +1,29 @@
+import org.openhab.core.library.types.*
+import org.openhab.core.persistence.*
+import org.openhab.model.script.actions.*
+import java.lang.Integer
+import java.lang.Double
+import java.lang.String
+
+var String[] buffer
+var Double tempCelsius
+var Double tempF
+var Double tempFahrenheit
+var Double humid
+var Double humidity
+
+rule "Convert_Temp_CtoF"
+when
+    Item esp_dht22 changed 
+then
+    buffer = esp_dht22.state.toString.split(", ")
+    tempCelsius = new Double(buffer.get(0))
+    logDebug("default.rules","tempCelsius: " + tempCelsius)
+    humid = new Double(buffer.get(1))
+    tempF = tempCelsius * 9/5 +  32
+    logDebug("default.rules","tempF: " + tempF)
+    tempFahrenheit = tempF
+    humidity = humid
+    postUpdate(esp_dht22_t, tempFahrenheit)
+    postUpdate(esp_dht22_h, humidity)
+end

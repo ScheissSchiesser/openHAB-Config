@@ -4,6 +4,7 @@ Group chart_home
 
 Number esp_dht22_t "Temperature [%.1f °F]" <temperature> (Living, chart_home) {mqtt="<[mymosquitto:LV_temp:state:default]"}
 Number esp_dht22_h "Humidity [%.1f %%]" <humidity> (Living, chart_home) {mqtt="<[mymosquitto:LV_humid:state:default]"}
+String esp_dht22 (Living, chart_home) {mqtt="<[mymosquitto:topic/esp1_temp:state:default]"}
 Number Temperature "Temperature [%.1f °F]" <temperature> {weather="locationId=home, type=temperature, property=current, unit=fahrenheit"}
 Number Humidity "Humidity [%d %%]" <humidity> {weather="locationId=home, type=atmosphere, property=humidity"}
 Number Temp_Chart_Period "Chart Period"
